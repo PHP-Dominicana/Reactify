@@ -14,4 +14,10 @@ class ReactifyService
         $reactable = $reactableType::findOrFail($reactableId);
         $reactable->reactions()->save($reaction);
     }
+
+    public function getReactionCount($reactableType, $reactableId)
+    {
+        $reactable = $reactableType::findOrFail($reactableId);
+        return $reactable->reactions()->count();
+    }
 }
