@@ -1,4 +1,4 @@
-# Reactify a easy way to add likes to comment, photos, etc.
+# Reactify an easy way to add likes to comment, photos, etc.
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/elminson/reactify.svg?style=flat-square)](https://packagist.org/packages/elminson/reactify)
 [![GitHub Tests Action Status](https://img.shields.io/github/actions/workflow/status/elminson/reactify/run-tests.yml?branch=main&label=tests&style=flat-square)](https://github.com/elminson/reactify/actions?query=workflow%3Arun-tests+branch%3Amain)
