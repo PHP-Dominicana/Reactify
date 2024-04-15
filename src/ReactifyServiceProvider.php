@@ -1,12 +1,12 @@
 <?php
 
-namespace VendorName\Skeleton;
+namespace PHPDominicana\Reactify;
 
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
-use VendorName\Skeleton\Commands\SkeletonCommand;
+use PHPDominicana\Reactify\Commands\ReactifyCommand;
 
-class SkeletonServiceProvider extends PackageServiceProvider
+class ReactifyServiceProvider extends PackageServiceProvider
 {
     public function configurePackage(Package $package): void
     {
@@ -16,10 +16,10 @@ class SkeletonServiceProvider extends PackageServiceProvider
          * More info: https://github.com/spatie/laravel-package-tools
          */
         $package
-            ->name('skeleton')
+            ->name('reactify')
             ->hasConfigFile()
             ->hasViews()
-            ->hasMigration('create_skeleton_table')
-            ->hasCommand(SkeletonCommand::class);
+            ->hasMigration('create_reactify_table')
+            ->hasCommand(ReactifyCommand::class);
     }
 }

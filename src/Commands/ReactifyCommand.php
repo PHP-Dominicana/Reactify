@@ -1,12 +1,12 @@
 <?php
 
-namespace VendorName\Skeleton\Commands;
+namespace PHPDominicana\Reactify\Commands;
 
 use Illuminate\Console\Command;
 
-class SkeletonCommand extends Command
+class ReactifyCommand extends Command
 {
-    public $signature = 'skeleton';
+    public $signature = 'reactify';
 
     public $description = 'My command';
 
