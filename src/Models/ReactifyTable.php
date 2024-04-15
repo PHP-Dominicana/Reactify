@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class ReactifyTable extends Model
 {
-    protected $fillable = ['user_id'];
+    protected $fillable = ['user_id', 'type'];
 
     protected $table = 'reactify_table';
 
