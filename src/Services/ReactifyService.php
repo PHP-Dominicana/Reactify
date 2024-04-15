@@ -20,4 +20,10 @@ class ReactifyService
         $reactable = $reactableType::findOrFail($reactableId);
         return $reactable->reactions()->count();
     }
+
+    public function getReactionCountByType($reactableType, $reactableId, $type)
+    {
+        $reactable = $reactableType::findOrFail($reactableId);
+        return $reactable->reactions()->where('type', $type)->count();
+    }
 }
