@@ -10,8 +10,13 @@ class ReactifyTable extends Model
 
     protected $table = 'reactify_table';
 
-    public function likeable()
+    public function reactionable()
     {
         return $this->morphTo();
+    }
+
+    public function reactionCounter()
+    {
+        return $this->morphOne(ReactionCounter::class, 'reactionable');
     }
 }

@@ -11,15 +11,23 @@ return new class extends Migration
         Schema::create('reactify_table', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
-            $table->morphs('reactable');
+            $table->uuidMorphs('reactable');
             $table->string('type'); // e.g., 'like', 'love', 'haha', etc.
             $table->timestamps();
-            $table->unique(['user_id', 'reactable_id', 'element_type']);
+            $table->unique(['user_id', 'reactable_id', 'reactify_table_type'], 'reactify_table_user_reactable_type_unique');
+        });
+
+        Schema::create('reactify_react_counters', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->uuidMorphs('reactable');
+            $table->unsignedBigInteger('count')->default(0);
+            $table->unique(['reactable_id', 'reactify_table_type'], 'reactable_counts');
         });
     }
 
     public function down()
     {
         Schema::dropIfExists('reactify_table');
+        Schema::dropIfExists('reactify_react_counters');
     }
 };
