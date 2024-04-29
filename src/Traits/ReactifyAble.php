@@ -82,8 +82,9 @@ trait ReactifyAble
             $userId = $this->loggedInUserId();
         }
 
-        return $query->whereHas('reactify', function ($q) use ($userId) {
-            $q->where('user_id', '=', $userId);
+        return $query->whereHas('reactify', function ($q) use ($userId, $reaction) {
+            $q->where('user_id', '=', $userId)
+              ->where('type', '=', $reaction);
         });
     }
 
@@ -94,5 +95,16 @@ trait ReactifyAble
     private function loggedInUserId(): string
     {
         return auth()->id();
+    }
+
+    /**
+     * Get the count of a specific reaction type
+     *
+     * @param Reaction $reaction
+     * @return int
+     */
+    public function getReactCountByType(Reaction $reaction): int
+    {
+        return $this->reactify()->where('type', $reaction)->count();
     }
 }
