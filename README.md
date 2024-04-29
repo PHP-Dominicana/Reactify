@@ -51,9 +51,22 @@ php artisan vendor:publish --tag="reactify-views"
 
 ## Usage
 
+### Add the trait to the model you want to add reactions.
 ```php
-$reactify = new PHPDominicana\Reactify();
-echo $reactify->echoPhrase('Hello, PHPDominicana!');
+class comments extends Model
+{
+    use Reactify;
+}
+```
+### Sample usage
+
+```php
+$comment = Comment::find(1);
+$comment->react($user->id, Reaction::LIKE);
+$comment->react($user->id, Reaction::DISLIKE);
+$comment->react($user->id, Reaction::LOVE);
+$comment->react($user->id, Reaction::HAHA);
+$comment->getReactCountByType(Reaction::LIKE);
 ```
 
 ## Testing
