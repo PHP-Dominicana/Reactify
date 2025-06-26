@@ -3,6 +3,7 @@
 namespace PHPDominicana\Reactify\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class ReactionCounter extends Model
 {
@@ -27,14 +28,13 @@ class ReactionCounter extends Model
         }
 
         $builder = ReactifyTable::query()
-            ->select(\DB::raw('count(*) as count, reactify_table_type, reactable_id'))
-            ->where('reactify_table_type', $modelClass)
+            ->select(DB::raw('count(*) as count, reactionable_type, reactable_id'))
+            ->where('reactionable_type', $modelClass)
             ->groupBy('reactable_id');
 
         $results = $builder->get();
-
         $inserts = $results->toArray();
 
-        \DB::table((new static)->table)->insert($inserts);
+        DB::table((new static)->table)->insert($inserts);
     }
 }

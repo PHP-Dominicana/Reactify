@@ -25,6 +25,7 @@ class ReactifyServiceProvider extends PackageServiceProvider
             ->hasConfigFile()
             ->hasViews()
             ->hasMigration('create_reactify_table')
+            ->publishesServiceProvider(ReactifyServiceProvider::class)
             ->hasCommand(ReactifyCommand::class);
     }
 }
