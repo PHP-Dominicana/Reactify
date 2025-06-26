@@ -5,7 +5,7 @@ namespace PHPDominicana\Reactify\Traits;
 use PHPDominicana\Reactify\Enums\Reaction;
 use PHPDominicana\Reactify\Models\ReactifyTable;
 
-trait ReactifyAble
+trait HasReaction
 {
     public function reactify()
     {
@@ -48,9 +48,11 @@ trait ReactifyAble
      */
     private function incrementReactCount(string $userId, Reaction $reaction): void
     {
-        $counter = $this->reactify()->where('user_id', $userId)->where('type', $reaction)->reactionCounter->firstOrNew();
-        $counter->count++;
-        $counter->save();
+        $counter = $this->reactify()->where('user_id', $userId)->where('type', $reaction)->first()?->reactionCounter;
+        if ($counter) {
+            $counter->count++;
+            $counter->save();
+        }
     }
 
     /**
@@ -58,9 +60,11 @@ trait ReactifyAble
      */
     private function decrementReactCount(string $userId, Reaction $reaction): void
     {
-        $counter = $this->reactify()->where('user_id', $userId)->where('type', $reaction)->reactionCounter->firstOrNew();
-        $counter->count--;
-        $counter->save();
+        $counter = $this->reactify()->where('user_id', $userId)->where('type', $reaction)->first()?->reactionCounter;
+        if ($counter) {
+            $counter->count--;
+            $counter->save();
+        }
     }
 
     /**
@@ -103,7 +107,7 @@ trait ReactifyAble
      * @param Reaction $reaction
      * @return int
      */
-    public function getReactCountByType(Reaction $reaction): int
+    public function reactions(Reaction $reaction): int
     {
         return $this->reactify()->where('type', $reaction)->count();
     }

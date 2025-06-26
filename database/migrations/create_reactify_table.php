@@ -8,20 +8,20 @@ return new class extends Migration
 {
     public function up()
     {
-        Schema::create('reactify_table', function (Blueprint $table) {
+        Schema::create('reactify_table', function (Blueprint $table): void {
             $table->id();
             $table->unsignedBigInteger('user_id');
-            $table->uuidMorphs('reactable');
+            $table->morphs('reactionable');
             $table->string('type'); // e.g., 'like', 'love', 'haha', etc.
             $table->timestamps();
             $table->unique(['user_id', 'reactable_id', 'reactify_table_type'], 'reactify_table_user_reactable_type_unique');
         });
 
-        Schema::create('reactify_react_counters', function (Blueprint $table) {
+        Schema::create('reactify_react_counters', function (Blueprint $table): void {
             $table->bigIncrements('id');
-            $table->uuidMorphs('reactable');
+            $table->morphs('reactionable');
             $table->unsignedBigInteger('count')->default(0);
-            $table->unique(['reactable_id', 'reactify_table_type'], 'reactable_counts');
+            $table->unique(['reactionable_id', 'reactionable_type'], 'reactionable_counts');
         });
     }
 
