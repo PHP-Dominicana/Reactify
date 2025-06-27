@@ -4,16 +4,17 @@ namespace PHPDominicana\Reactify\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
+use PHPDominicana\Reactify\Facades\Reactify;
 
 class ReactionCounter extends Model
 {
-    protected $fillable = ['reactable_id', 'reactify_table_type', 'count'];
+    protected $fillable = ['reactionable_id', 'reactionable_type', 'count'];
 
     protected $table = 'reactify_react_counters';
 
     public function reactionable()
     {
-        return $this->morphTo();
+        return $this->morphTo(Reactify::class, 'reactionable');
     }
 
     /**
