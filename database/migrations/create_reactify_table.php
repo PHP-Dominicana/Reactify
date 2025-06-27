@@ -14,7 +14,6 @@ return new class extends Migration
             $table->morphs('reactionable');
             $table->string('type'); // e.g., 'like', 'love', 'haha', etc.
             $table->timestamps();
-            $table->unique(['user_id', 'reactable_id', 'reactify_table_type'], 'reactify_table_user_reactable_type_unique');
         });
 
         Schema::create('reactify_react_counters', function (Blueprint $table): void {

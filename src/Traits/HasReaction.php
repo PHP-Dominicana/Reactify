@@ -2,17 +2,35 @@
 
 namespace PHPDominicana\Reactify\Traits;
 
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 use PHPDominicana\Reactify\Enums\Reaction;
 use PHPDominicana\Reactify\Models\ReactifyTable;
 
 trait HasReaction
 {
-    public function reactify()
+    public function reactify(): MorphMany
     {
         return $this->morphMany(ReactifyTable::class, 'reactionable');
     }
 
     public function react(string $userId, Reaction $type): void
+    {
+        $reaction = $this->reactify()->where('user_id', $userId)->first();
+        if (!$reaction) {
+            $this->add($userId, $type);
+            return;
+        }
+
+        if ($reaction->type === $type) {
+            $this->toggleReact($userId, $type);
+            return;
+        }
+
+        $this->remove($userId, $reaction->type); // remove current reaction first
+        $this->add($userId, $type);
+    }
+
+    private function add(string $userId, Reaction $type): void
     {
         $this->reactify()->create([
             'user_id' => $userId,
@@ -22,20 +40,25 @@ trait HasReaction
         $this->incrementReactCount($userId, $type);
     }
 
-    public function unreact(string $userId, Reaction $type): void
+    public function unReact(string $userId, Reaction $type): void
+    {
+        $this->remove($userId, $type);
+    }
+
+    public function toggleReact(string $userId, Reaction $type): void
+    {
+        if ($this->isReactedBy($userId, $type)) {
+            $this->remove($userId, $type);
+        } else {
+            $this->add($userId, $type);
+        }
+    }
+
+    private function remove(string $userId, Reaction $type): void
     {
         $this->reactify()->where('user_id', $userId)->where('type', $type)->delete();
 
         $this->decrementReactCount($userId, $type);
-    }
-
-    public function toggleReact(string $userId, Reaction $type)
-    {
-        if ($this->isReactedBy($userId, $type)) {
-            $this->unreact($userId, $type);
-        } else {
-            $this->react($userId, $type);
-        }
     }
 
     public function isReactedBy(string $userId, Reaction $type)
