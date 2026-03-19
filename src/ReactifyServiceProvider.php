@@ -8,11 +8,6 @@ use PHPDominicana\Reactify\Commands\ReactifyCommand;
 
 class ReactifyServiceProvider extends PackageServiceProvider
 {
-    public function boot()
-    {
-        $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
-    }
-
     public function configurePackage(Package $package): void
     {
         /*
@@ -24,6 +19,7 @@ class ReactifyServiceProvider extends PackageServiceProvider
             ->name('reactify')
             ->hasConfigFile()
             ->hasViews()
+            ->runsMigrations()
             ->hasMigration('create_reactify_table')
             ->publishesServiceProvider(ReactifyServiceProvider::class)
             ->hasCommand(ReactifyCommand::class);

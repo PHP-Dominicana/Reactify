@@ -7,6 +7,13 @@
 
 Add reactions (like 👍, dislike 👎, love ❤️, haha 😄, etc.) to any Eloquent model in Laravel. Perfect for blogs, comments, posts, reviews, and more.
 
+## Compatibility
+
+`reactify` supports Laravel 12 and Laravel 13.
+
+- Laravel 12: PHP 8.2+
+- Laravel 13: PHP 8.3+
+
 ## Installation
 
 You can install the package via composer:
@@ -15,14 +22,25 @@ You can install the package via composer:
 composer require phpdominicana/reactify
 ```
 
-You can publish and run the migrations with:
+Then rebuild Laravel's package manifest:
+
+```bash
+php artisan package:discover
+```
+
+You may publish the migration file with:
 
 ```bash
 php artisan vendor:publish --tag="reactify-migrations"
+```
+
+And run migrations with:
+
+```bash
 php artisan migrate
 ```
 
-You can publish the config file with:
+You may publish the config file with:
 
 ```bash
 php artisan vendor:publish --tag="reactify-config"

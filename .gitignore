@@ -2,3 +2,6 @@ vendor
 .idea/
 workbench
 testbench.yaml
+.agents/
+.claude/
+skills-lock.json
