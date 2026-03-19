@@ -1,0 +1,10 @@
+{
+  "version": 1,
+  "skills": {
+    "laravel-update-with-rector": {
+      "source": "masterfermin02/laravel-agent-skill",
+      "sourceType": "github",
+      "computedHash": "1fecd6276dad491ea4c1a3871827d18c73ae48bbfaace18835436b456ba28b6e"
+    }
+  }
+}
